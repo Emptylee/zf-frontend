@@ -28,7 +28,7 @@ exports.sortDependencies = function sortDependencies(data) {
 exports.installDependencies = function installDependencies(
   cwd,
   executable = 'npm',
-  color
+  color = green
 ) {
   console.log(`\n\n# ${color('Installing project dependencies ...')}`)
   console.log('# ========================\n')
@@ -42,7 +42,7 @@ exports.installDependencies = function installDependencies(
  * @param {string} cwd Path of the created project directory
  * @param {object} data Data from questionnaire
  */
-exports.runLintFix = function runLintFix(cwd, data, color) {
+exports.runLintFix = function runLintFix(cwd, data, color = green) {
   if (data.lint && lintStyles.indexOf(data.lintConfig) !== -1) {
     console.log(
       `\n\n${color(
