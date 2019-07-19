@@ -133,27 +133,25 @@ module.exports = {
       type: 'confirm',
       message: 'Setup e2e tests with Nightwatch?',
     },
-    components:{
-      when:'isNotTest',
-      type: 'checkbox',
-      message: '请选择组件',
-      choices: [
-        {
-          name: '全选',
-          value:'all',
-          short:'all'
-        },
-        {
-          name: '组件1',
-          value: 'comp1',
-          short: 'comp1',
-        },
-        {
-          name: '组件2',
-          value: 'comp2',
-          short: 'comp2',
-        },
-      ],
+    isAllComponents:{
+      when: 'isNotTes',
+      type:'comfirm',
+      name:'all',
+      message:'是否使用全部公用组件?'
+    },
+    component1:{
+      when: function(answers) { // 当watch为true的时候才会提问当前问题
+          return !answers.all
+      },
+      type: 'confirm',
+      message: '是否使用组件1?',
+    },
+    component2:{
+      when: function(answers) { // 当watch为true的时候才会提问当前问题
+          return !answers.all
+      },
+      type: 'confirm',
+      message: '是否使用组件2?',
     },
     autoInstall: {
       when: 'isNotTest',
@@ -191,16 +189,12 @@ module.exports = {
     'test/unit/specs/index.js': "unit && runner === 'karma'",
     'test/unit/setup.js': "unit && runner === 'jest'",
     'test/e2e/**/*': 'e2e',
-    'src/router/**/*': 'router'
+    'src/router/**/*': 'router',
+    'src/components/**/*':'isAllComponents',
+    'src/components/component1/*':'component1',
+    'src/components/component2/*':'component2',
   },
   complete: function(data, { chalk }) {
-    const green = chalk.green
-    console.log(this.prompts.runner)
-    console.log(this.prompts.runner==='karma')
-    console.log(JSON.stringify(this.prompts.runner))
-    console.log(this.prompts.components)
-    console.log(JSON.stringify(this.prompts.components))
-    return;
     sortDependencies(data, green)
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
