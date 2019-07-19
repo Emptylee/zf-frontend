@@ -185,13 +185,6 @@ module.exports = {
     'src/router/**/*': 'router'
   },
   complete: function(data, { chalk }) {
-    const green = chalk.green
-    console.log(this.prompts.runner)
-    console.log(this.prompts.runner==='karma')
-    console.log(JSON.stringify(this.prompts.runner))
-    console.log(this.prompts.components)
-    console.log(JSON.stringify(this.prompts.components))
-    return;
     sortDependencies(data, green)
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
