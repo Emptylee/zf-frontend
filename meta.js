@@ -133,19 +133,6 @@ module.exports = {
       type: 'confirm',
       message: 'Setup e2e tests with Nightwatch?',
     },
-    // isAllComponents:{
-    //   when: 'isNotTes',
-    //   type:'comfirm',
-    //   name:'all',
-    //   message:'是否使用全部公用组件?'
-    // },
-    // components1:{
-    //   when: function(answers) { // 当watch为true的时候才会提问当前问题
-    //       return !answers.all
-    //   },
-    //   type: 'confirm',
-    //   message: '',
-    // },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
@@ -182,9 +169,11 @@ module.exports = {
     'test/unit/specs/index.js': "unit && runner === 'karma'",
     'test/unit/setup.js': "unit && runner === 'jest'",
     'test/e2e/**/*': 'e2e',
-    'src/router/**/*': 'router'
+    'src/router/**/*': 'router',
   },
   complete: function(data, { chalk }) {
+    const green = chalk.green
+
     sortDependencies(data, green)
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
