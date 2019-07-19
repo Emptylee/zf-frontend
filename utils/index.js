@@ -27,10 +27,10 @@ exports.sortDependencies = function sortDependencies(data) {
  */
 exports.installDependencies = function installDependencies(
   cwd,
-  executable = 'npm',
-  color = green
+  executable = 'npm'
 ) {
-  console.log(`\n\n# ${color('Installing project dependencies ...')}`)
+  console.log('Installing project dependencies ...')
+  // console.log(`\n\n# ${color('Installing project dependencies ...')}`)
   console.log('# ========================\n')
   return runCommand(executable, ['install'], {
     cwd,
@@ -42,13 +42,14 @@ exports.installDependencies = function installDependencies(
  * @param {string} cwd Path of the created project directory
  * @param {object} data Data from questionnaire
  */
-exports.runLintFix = function runLintFix(cwd, data, color = green) {
+exports.runLintFix = function runLintFix(cwd, data) {
   if (data.lint && lintStyles.indexOf(data.lintConfig) !== -1) {
-    console.log(
-      `\n\n${color(
-        'Running eslint --fix to comply with chosen preset rules...'
-      )}`
-    )
+    // console.log(
+    //   `\n\n${color(
+    //     'Running eslint --fix to comply with chosen preset rules...'
+    //   )}`
+    // )
+    console.log('Running eslint --fix to comply with chosen preset rules...')
     console.log('# ========================\n')
     const args =
       data.autoInstall === 'npm'
