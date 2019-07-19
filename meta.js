@@ -133,26 +133,19 @@ module.exports = {
       type: 'confirm',
       message: 'Setup e2e tests with Nightwatch?',
     },
-    isAllComponents:{
-      when: 'isNotTest',
-      type:'comfirm',
-      name:'all',
-      message:'是否使用全部公用组件?'
-    },
-    component1:{
-      when: function(answers) { // 当watch为true的时候才会提问当前问题
-          return !answers.all
-      },
-      type: 'confirm',
-      message: '是否使用组件1?',
-    },
-    component2:{
-      when: function(answers) { // 当watch为true的时候才会提问当前问题
-          return !answers.all
-      },
-      type: 'confirm',
-      message: '是否使用组件2?',
-    },
+    // isAllComponents:{
+    //   when: 'isNotTes',
+    //   type:'comfirm',
+    //   name:'all',
+    //   message:'是否使用全部公用组件?'
+    // },
+    // components1:{
+    //   when: function(answers) { // 当watch为true的时候才会提问当前问题
+    //       return !answers.all
+    //   },
+    //   type: 'confirm',
+    //   message: '',
+    // },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
@@ -189,23 +182,27 @@ module.exports = {
     'test/unit/specs/index.js': "unit && runner === 'karma'",
     'test/unit/setup.js': "unit && runner === 'jest'",
     'test/e2e/**/*': 'e2e',
-    'src/router/**/*': 'router',
-    'src/components/**/*':'isAllComponents',
-    'src/components/component1/*':'component1',
-    'src/components/component2/*':'component2',
+    'src/router/**/*': 'router'
   },
   complete: function(data, { chalk }) {
-    sortDependencies(data)
+    const green = chalk.green
+    console.log(this.prompts.runner)
+    console.log(this.prompts.runner==='karma')
+    console.log(JSON.stringify(this.prompts.runner))
+    console.log(this.prompts.components)
+    console.log(JSON.stringify(this.prompts.components))
+    return;
+    sortDependencies(data, green)
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
 
     if (data.autoInstall) {
-      installDependencies(cwd, data.autoInstall)
+      installDependencies(cwd, data.autoInstall, green)
         .then(() => {
-          return runLintFix(cwd, data)
+          return runLintFix(cwd, data, green)
         })
         .then(() => {
-          printMessage(data)
+          printMessage(data, green)
         })
         .catch(e => {
           console.log(chalk.red('Error:'), e)
