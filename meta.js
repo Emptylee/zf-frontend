@@ -195,17 +195,17 @@ module.exports = {
     'src/components/component2/*':'component2',
   },
   complete: function(data, { chalk }) {
-    sortDependencies(data, green)
+    sortDependencies(data)
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
 
     if (data.autoInstall) {
-      installDependencies(cwd, data.autoInstall, green)
+      installDependencies(cwd, data.autoInstall)
         .then(() => {
-          return runLintFix(cwd, data, green)
+          return runLintFix(cwd, data)
         })
         .then(() => {
-          printMessage(data, green)
+          printMessage(data)
         })
         .catch(e => {
           console.log(chalk.red('Error:'), e)
