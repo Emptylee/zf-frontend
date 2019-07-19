@@ -134,7 +134,7 @@ module.exports = {
       message: 'Setup e2e tests with Nightwatch?',
     },
     isAllComponents:{
-      when: 'isNotTes',
+      when: 'isNotTest',
       type:'comfirm',
       name:'all',
       message:'是否使用全部公用组件?'
